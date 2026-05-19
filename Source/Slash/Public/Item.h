@@ -28,11 +28,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")
 	float TimeConstant = 5.f;
 	
+	UPROPERTY(EditAnywhere, Category = "Rotate Parameters")
+	float RotateMovement = 30.f;
+	
 	UFUNCTION(BlueprintPure)
 	float TransformedSin();
 	
 	UFUNCTION(BlueprintPure)
 	float TransformedCos();
+	
+	UFUNCTION(BlueprintCallable)
+	void RotateActor(float DeltaTime);
 	
 	template<typename T>
 	T Avg(T First, T Second);
@@ -43,3 +49,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* ItemMesh;
 };
+
+template <typename T>
+inline T AItem::Avg(T First, T Second)
+{
+	return (First + Second) / 2;
+}
