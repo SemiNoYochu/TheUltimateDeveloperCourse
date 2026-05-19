@@ -13,7 +13,7 @@ ABird::ABird()
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	Capsule->SetCapsuleRadius(15.f);
 	Capsule->SetCapsuleHalfHeight(20.f);
-	SetRootComponent(Capsule);
+	RootComponent = Capsule;	// 강의에서는 SetRootComponent() 사용
 }
 
 // Called when the game starts or when spawned
