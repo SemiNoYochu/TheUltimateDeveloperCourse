@@ -3,12 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "GameFramework/Pawn.h"
 #include "Bird.generated.h"
 
 // forward declaration(Top-Level Forward Declaration)
 class UCapsuleComponent;
 class USkeletalMeshComponent;
+class UInputMappingContext;
+class UInputAction;
 
 UCLASS()
 class SLASH_API ABird : public APawn
@@ -24,6 +27,14 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 protected:
 	virtual void BeginPlay() override;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputMappingContext* BirdMappingContext;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* MoveAction;
+	
+	void Move(const FInputActionValue& Value);
 private:
 	// forward declaration(Inline Forward Declaration)
 	// class UCapsuleComponent* Capsule;
