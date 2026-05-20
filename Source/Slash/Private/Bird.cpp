@@ -3,6 +3,7 @@
 
 #include "Bird.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 
 // Sets default values
 ABird::ABird()
@@ -13,10 +14,13 @@ ABird::ABird()
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	Capsule->SetCapsuleRadius(15.f);
 	Capsule->SetCapsuleHalfHeight(20.f);
-	RootComponent = Capsule;	// 강의에서는 SetRootComponent() 사용
+	RootComponent = Capsule;	// use SetRootComponent() in course
+	
+	BirdMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("BirdMesh"));
+	BirdMesh->SetupAttachment(RootComponent);		// use GetRootComponent() in course
+	
 }
 
-// Called when the game starts or when spawned
 void ABird::BeginPlay()
 {
 	Super::BeginPlay();

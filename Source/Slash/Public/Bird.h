@@ -7,7 +7,8 @@
 #include "Bird.generated.h"
 
 // forward declaration(Top-Level Forward Declaration)
-class UCapsuleComponent;	
+class UCapsuleComponent;
+class USkeletalMeshComponent;
 
 UCLASS()
 class SLASH_API ABird : public APawn
@@ -28,4 +29,7 @@ private:
 	// class UCapsuleComponent* Capsule;
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
+	
+	UPROPERTY(VisibleAnywhere)
+	USkeletalMeshComponent* BirdMesh;
 };
