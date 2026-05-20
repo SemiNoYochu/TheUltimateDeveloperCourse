@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Components/CapsuleComponent.h"
 #include "Bird.generated.h"
+
+// forward declaration(Top-Level Forward Declaration)
+class UCapsuleComponent;	
 
 UCLASS()
 class SLASH_API ABird : public APawn
@@ -22,6 +24,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 private:
+	// forward declaration(Inline Forward Declaration)
+	// class UCapsuleComponent* Capsule;
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
 };
