@@ -9,7 +9,6 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 
-
 // Sets default values
 ABird::ABird()
 {
