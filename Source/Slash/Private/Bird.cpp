@@ -49,12 +49,21 @@ void ABird::BeginPlay()
 void ABird::Move(const FInputActionValue& Value)
 {
 	float DirectionValue = Value.Get<float>();
-	if (Controller && DirectionValue != 0.f)
+	if (GetController() && DirectionValue != 0.f)
 	{
 		FVector Forward = GetActorForwardVector();
 		AddMovementInput(Forward, DirectionValue);
 	}
-	
+}
+
+void ABird::Look(const FInputActionValue& Value)
+{
+	const FVector2D LookAxisValue = Value.Get<FVector2D>();
+	if (GetController())
+	{
+		AddControllerYawInput(LookAxisValue.X);
+		AddControllerPitchInput(LookAxisValue.Y);
+	}
 }
 
 // Called every frame
@@ -76,6 +85,12 @@ void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 			ETriggerEvent::Triggered, 
 			this, 
 			&ABird::Move);
+		
+		EnhancedInputComponent->BindAction(
+			LookAction, 
+			ETriggerEvent::Triggered, 
+			this, 
+			&ABird::Look);
 	}
 }
 
