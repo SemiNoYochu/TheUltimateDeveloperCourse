@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "InputActionValue.h"
 #include "GameFramework/Pawn.h"
+#include "InputActionValue.h"
 #include "Bird.generated.h"
 
 // forward declaration(Top-Level Forward Declaration)

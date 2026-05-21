@@ -39,10 +39,13 @@ void ABird::BeginPlay()
 
 void ABird::Move(const FInputActionValue& Value)
 {
-	if (Value.Get<bool>())
+	float DirectionValue = Value.Get<float>();
+	if (Controller && DirectionValue != 0.f)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("IA_Move triggered"));
+		FVector Forward = GetActorForwardVector();
+		AddMovementInput(Forward, DirectionValue);
 	}
+	
 }
 
 // Called every frame
