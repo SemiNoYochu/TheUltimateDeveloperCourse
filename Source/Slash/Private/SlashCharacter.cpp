@@ -65,6 +65,13 @@ void ASlashCharacter::Move(const FInputActionValue& Value)
 		AddMovementInput(Forward, MovementVector.Y);
 		const FVector Right = FRotationMatrix(YawRotator).GetUnitAxis(EAxis::Y);
 		AddMovementInput(Right, MovementVector.X);
+		
+		GEngine->AddOnScreenDebugMessage(
+		1, 
+		1.f, 
+		FColor::Red, 
+		FString::Printf(TEXT("MoveAction X: %f, Y: %f"), MovementVector.X, MovementVector.Y)
+		);
 	}
 }
 
@@ -73,6 +80,13 @@ void ASlashCharacter::Look(const FInputActionValue& Value)
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	AddControllerPitchInput(LookAxisVector.Y);
 	AddControllerYawInput(LookAxisVector.X);
+	
+	GEngine->AddOnScreenDebugMessage(
+		1, 
+		1.f, 
+		FColor::Red, 
+		FString::Printf(TEXT("LookAction X: %f, Y: %f"), LookAxisVector.X, LookAxisVector.Y)
+		);
 }
 
 void ASlashCharacter::Tick(float DeltaTime)
@@ -98,6 +112,24 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 			ETriggerEvent::Triggered, 
 			this, 
 			&ASlashCharacter::Look);
+		
+		EnhancedInputComponent->BindAction(
+			JumpAction, 
+			ETriggerEvent::Triggered, 
+			this, 
+			&ACharacter::Jump);
 	}
+}
+
+void ASlashCharacter::Jump()
+{
+	Super::Jump();
+	
+	GEngine->AddOnScreenDebugMessage(
+		1, 
+		1.f, 
+		FColor::Red, 
+		FString("JumpAction True")
+		);
 }
 
