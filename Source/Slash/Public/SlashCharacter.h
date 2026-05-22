@@ -47,9 +47,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* ViewCamera;
 	
-	UPROPERTY(VisibleAnywhere, Category = Hair)
+	UPROPERTY(VisibleAnywhere, Category = "Hair")
 	UGroomComponent* Hair;
 	
-	UPROPERTY(VisibleAnywhere, Category = Hair)
+	UPROPERTY(VisibleAnywhere, Category = "Hair")
 	UGroomComponent* Eyebrow;
 };
