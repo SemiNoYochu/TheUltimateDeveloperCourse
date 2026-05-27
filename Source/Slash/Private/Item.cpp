@@ -23,7 +23,8 @@ void AItem::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnSphereOverlap);
+	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnSphereBeginOverlap);
+	Sphere->OnComponentEndOverlap.AddDynamic(this, &AItem::OnSphereEndOverlap);
 }
 
 float AItem::TransformedSin()
@@ -41,7 +42,7 @@ void AItem::RotateActor(float DeltaTime)
 	AddActorWorldRotation(FRotator(0.f, RotateMovement * DeltaTime, 0.f));
 }
 
-void AItem::OnSphereOverlap(
+void AItem::OnSphereBeginOverlap(
 	UPrimitiveComponent* OverlappedComponent, 
 	AActor* OtherActor, 
 	UPrimitiveComponent* OtherComp, 
@@ -49,7 +50,20 @@ void AItem::OnSphereOverlap(
 	bool bFromSweep, 
 	const FHitResult& SweepResult)
 {
-	const FString OtherActorName = OtherActor->GetName();
+	const FString OtherActorName = FString::Printf(TEXT("Begining Overlap with: %s"), *OtherActor->GetName());
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(2, 30.f, FColor::Red, OtherActorName);
+	}
+}
+
+void AItem::OnSphereEndOverlap(
+	UPrimitiveComponent* OverlappedComponent, 
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, 
+	int32 OtherBodyIndex)
+{
+	const FString OtherActorName = FString("Ending Overlap with: ") + OtherActor->GetName();
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(2, 30.f, FColor::Green, OtherActorName);
