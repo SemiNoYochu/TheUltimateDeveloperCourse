@@ -2,6 +2,7 @@
 
 
 #include "Item.h"
+#include "Components/SphereComponent.h"
 
 // Sets default values
 AItem::AItem()
@@ -12,6 +13,9 @@ AItem::AItem()
 	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 	// RootComponent = ItemMesh; <- 강의에서의 방식
 	SetRootComponent(ItemMesh);
+	
+	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
+	Sphere->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -19,6 +23,7 @@ void AItem::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnSphereOverlap);
 }
 
 float AItem::TransformedSin()
@@ -34,6 +39,21 @@ float AItem::TransformedCos()
 void AItem::RotateActor(float DeltaTime)
 {
 	AddActorWorldRotation(FRotator(0.f, RotateMovement * DeltaTime, 0.f));
+}
+
+void AItem::OnSphereOverlap(
+	UPrimitiveComponent* OverlappedComponent, 
+	AActor* OtherActor, 
+	UPrimitiveComponent* OtherComp, 
+	int32 OtherBodyIndex, 
+	bool bFromSweep, 
+	const FHitResult& SweepResult)
+{
+	const FString OtherActorName = OtherActor->GetName();
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(2, 30.f, FColor::Green, OtherActorName);
+	}
 }
 
 // Called every frame
