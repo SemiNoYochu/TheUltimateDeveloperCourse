@@ -60,15 +60,17 @@ protected:
 		AActor* OtherActor, 
 		UPrimitiveComponent* OtherComp, 
 		int32 OtherBodyIndex);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UStaticMeshComponent* ItemMesh;
+	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float RunningTime;
 	
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* ItemMesh;
-	
-	UPROPERTY(VisibleAnywhere)
 	USphereComponent* Sphere;
+	
 };
 
 template <typename T>
